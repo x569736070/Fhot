@@ -4,7 +4,12 @@ import Vue from 'vue'
 import App from './index.vue'
 import router from './router'
 
-Vue.config.productionTip = false
+/*导入echarts*/
+import echarts from 'echarts'
+
+Vue.prototype.$echarts = echarts;
+
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
