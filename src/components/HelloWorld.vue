@@ -1,24 +1,22 @@
 <template>
-      <div>
-          <div id="main"></div>
-      </div>
+  <div>
+    <div style="height: 100%;margin: auto" id="main"></div>
+  </div>
 </template>
 <script>
   import json from '../assets/json'
-  import 'echarts/extension/bmap/bmap'
-  import $echarts from 'echarts'
-  import bff from '../components/Bdff'
+  import bMap from 'echarts/extension/bmap/bmap'
+  import echarts from 'echarts'
   export default {
-  components:{
-    bff
-  },
-  data () {
-    return {
-      json:json,
-    }
-  },
-  mounted() {
-    var myChart = $echarts.init(document.getElementById("main"));
+    components:{
+    },
+    data () {
+      return {
+        json:json,
+      }
+    },
+    mounted() {
+      var myChart = echarts.init(document.getElementById("main"));
       var points = [].concat.apply([], this.json.map(function (track) {
         return track.map(function (seg) {
           return seg.coord.concat([1]);
@@ -51,10 +49,10 @@
         }]
       });
       // 添加百度地图插件
-      var bmap = myChart.getModel().getComponent('bmap').getMap();
+      var bmap = myChart.getModel().getComponent('bmap').getBMap();
       bmap.addControl(new BMap.MapTypeControl());
+    }
   }
-}
 </script>
 
 <style scoped>
