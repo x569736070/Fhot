@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/3.1.0/jquery-3.1.0.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=kTHIMKfxtNOzCzFvErGtbd0i2v1o3no9"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+       <script type="text/javascript">
+  var myChart = echarts.init(document.getElementById("container"));
+  $.get('json.json', function (data) {
+    var points = [].concat.apply([], data.map(function (track) {
+        return track.map(function (seg) {
+            return seg.coord.concat([1]);
+        });
+    }));
+    myChart.setOption(option = {
+        animation: false,
+        bmap: {
+            center: [120.13066322374, 30.240018034923],
+            zoom: 14,
+            roam: true
+        },
+        visualMap: {
+            show: false,
+            top: 'top',
+            min: 0,
+            max: 5,
+            seriesIndex: 0,
+            calculable: true,
+            inRange: {
+                color: ['blue', 'blue', 'green', 'yellow', 'red']
+            }
+        },
+        series: [{
+            type: 'heatmap',
+            coordinateSystem: 'bmap',
+            data: points,
+            pointSize: 5,
+            blurSize: 6
+        }]
+    });
+    // 添加百度地图插件
+    var bmap = myChart.getModel().getComponent('bmap').getBMap();
+    bmap.addControl(new BMap.MapTypeControl());
+});
+       </script>
+   </body>
+</html>
