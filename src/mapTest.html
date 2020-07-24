@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>百度地图离线</title>
+  <script type="text/javascript" src="assets/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="assets/appiv3.0.js"></script>
+</head>
+<script type="text/javascript">
+  $(document).ready(function () {
+    var map = new BMap.Map("main");
+    var point = new BMap.Point(120.13066322374, 30.240018034923);   // 创建点坐标
+    map.centerAndZoom(point, 7);
+    map.enableScrollWheelZoom();         		// 启用滚轮放大缩小。
+    map.enableKeyboard();                		// 启用键盘操作。
+
+    //系统放大缩小的系数
+    // map.setMinZoom(0);
+    // map.setMaxZoom(10);
+  })
+</script>
+<body>
+<div id="main" style="width: 1500px;height: 500px;"></div>
+</body>
+</html>
